@@ -57,7 +57,7 @@ function rollMessage(result, sides) {
       break;
     case "Average roll":
       if (result === 13) {
-        replyMessage = `😈👹 The more you suck it, the more it grows. You've rolled a ${result} 👹👿`; // spanish joke, sorry if you don't understand it
+        replyMessage = `😈👹 The more you suck it, the more it grows. You've rolled a ${result} 👹😈`; // spanish joke, sorry if you don't understand it
       } else if (result === 69) {
         replyMessage = `😈🥵 69. Nice one. 🥵😈`;
       } else {

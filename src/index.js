@@ -1,6 +1,7 @@
 require("dotenv").config();
 const { Client, IntentsBitField } = require("discord.js");
 const { handleCommand } = require("./commandHandler");
+const { generateCharacter } = require("./createStats");
 
 const client = new Client({
   intents: [
@@ -17,14 +18,46 @@ client.on("ready", (c) => {
 
 client.on("messageCreate", (message) => {
   if (message.author.bot) return;
-});
+  
+  if (message.content.startsWith("$rollstats")) {
+    const args = message.content.split(" ");
 
-client.on("interactionCreate", (interaction) => {
-  if (!interaction.isChatInputCommand()) return;
+    // Obtener la edad del segundo argumento (si está presente)
+    let age = null;
+    let sex = '';
+    if (args.length > 1 && !isNaN(args[1])) {
+      age = parseInt(args[1]);
+      sex = args[2]
+    }
 
-  if (interaction.commandName) {
-    handleCommand(interaction)
+    // Genera las características del personaje, pasando la edad como argumento
+    const characteristics = generateCharacter(age, sex);
+    const response = `
+    **AGE:** ${age}
+**STR (Strength):** ${characteristics.STR}
+**CON (Constitution):** ${characteristics.CON}
+**SIZ (Size):** ${characteristics.SIZ}
+**DEX (Dexterity):** ${characteristics.DEX}
+**APP (Appearance):** ${characteristics.APP}
+**INT (Intelligence):** ${characteristics.INT}
+**POW (Power):** ${characteristics.POW}
+**EDU (Education):** ${characteristics.EDU}
+**Luck:** ${characteristics.Luck}
+**Damage Bonus:** ${characteristics.damageBonus}
+**Build:** ${characteristics.build}
+**Hit Points:** ${characteristics.hitPoints}
+**MOV (Movement Rate):** ${characteristics.MOV}
+${sex === 'M' ? `**Dick Size:** ${characteristics.DS}` : ``}
+`;
+
+    // Envía el mensaje al canal de Discord
+    message.channel.send(response);
+  }
+
+  if (message.content.startsWith("$roll")) {
+    handleCommand(message);
   }
 });
+
 
 client.login(process.env.TOKEN);
