@@ -1,4 +1,4 @@
-# BotRoll# BotRoll
+# BotRoll
 
 BotRoll is a Discord bot designed to enhance your tabletop gaming experience by providing fun and interactive dice rolling capabilities. Whether you're playing Dungeons & Dragons, Call of Cthulhu, or any other tabletop RPG, BotRoll is here to help you roll dice, determine success or failure, and add some flavor to your gaming sessions.
 
